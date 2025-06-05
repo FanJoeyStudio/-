@@ -63,42 +63,42 @@
     }
 
     .desktop {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 720px;
-      height: 424px;
-      background-image: url('fon.png');
-      background-size: cover;
-      display: none;
-    }
+  position: absolute;
+  top: 38px;
+  left: 40px;
+  width: 720px;
+  height: 424px;
+  background-image: url('fon.png.png');
+  background-size: cover;
+  display: none;
+  position: relative;
+}
 
-    .code-icon, .off-btn, .time-label {
-      position: absolute;
-      z-index: 2;
-    }
+.code-icon {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 50px;
+}
 
-    .code-icon {
-      top: 10px;
-      left: 10px;
-      width: 50px;
-    }
+.off-btn {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  width: 50px;
+  cursor: pointer;
+}
 
-    .off-btn {
-      bottom: 10px;
-      left: 10px;
-      width: 50px;
-      cursor: pointer;
-    }
+.time-label {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  color: black;
+  background: rgba(255,255,255,0.6);
+  padding: 5px 10px;
+  font-family: monospace;
+}
 
-    .time-label {
-      bottom: 10px;
-      right: 10px;
-      color: black;
-      background: rgba(255,255,255,0.6);
-      padding: 5px 10px;
-      font-family: monospace;
-    }
   </style>
 </head>
 <body>
@@ -111,11 +111,12 @@
       </div>
     </div>
 
-    <div class="desktop" id="desktop">
-      <img src="Code.png" class="code-icon" />
-      <img src="off.png" class="off-btn" onclick="shutdown()" />
-      <div class="time-label" id="timeLabel">00:00</div>
-    </div>
+<div class="desktop" id="desktop">
+  <img src="Code.png.png" class="code-icon" />
+  <img src="off.png.png" class="off-btn" onclick="shutdown()" />
+  <div class="time-label" id="timeLabel">00:00</div>
+</div>
+
 
     <img src="pc-frame.png" alt="Frame" class="frame" />
   </div>
