@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BestDay UI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    * { box-sizing: border-box; }
     html, body {
       margin: 0;
       padding: 0;
@@ -13,38 +14,50 @@
       height: 100vh;
       overflow: hidden;
     }
-    #login-screen, #desktop-screen {
+    #screen {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
+      width: 1223px;
+      height: 768px;
+      background: url('PC part.png') no-repeat center;
+      background-size: contain;
     }
-    #login-screen img, #desktop-screen img {
-      display: block;
-      max-width: 100%;
+    #ui-layer {
+      position: absolute;
+      top: 92px;
+      left: 63px;
+      width: 1098px;
+      height: 576px;
+      background: url('fon.png') no-repeat center;
+      background-size: cover;
+      overflow: hidden;
     }
     #login-ui {
       position: absolute;
-      top: 50%;
+      bottom: 80px;
       left: 50%;
-      transform: translate(-50%, -50%);
+      transform: translateX(-50%);
       display: flex;
-      flex-direction: column;
-      align-items: center;
+      gap: 10px;
     }
     #login-ui input {
       padding: 10px;
-      font-size: 1rem;
-      width: 200px;
+      width: 300px;
+      font-size: 16px;
     }
     #login-ui button {
-      margin-top: 10px;
       padding: 10px 20px;
+      font-size: 16px;
     }
     #error-msg {
+      position: absolute;
+      bottom: 130px;
+      left: 50%;
+      transform: translateX(-50%);
       color: red;
       font-family: sans-serif;
-      margin-bottom: 10px;
       display: none;
     }
     #clock {
@@ -57,48 +70,61 @@
     }
     #exit-button {
       position: absolute;
-      bottom: 40px;
+      bottom: 36px;
       left: 50px;
+      width: 48px;
       cursor: pointer;
     }
+    .icon {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      cursor: pointer;
+    }
+    #icon-pers { top: 100px; left: 100px; }
+    #icon-code { top: 100px; left: 200px; }
+    #icon-ce { top: 100px; left: 300px; }
   </style>
 </head>
 <body>
-  <div id="login-screen">
-    <img src="LogIN.png" alt="Login Background">
-    <div id="login-ui">
+  <div id="screen">
+    <div id="ui-layer">
       <div id="error-msg">Ошибка кода</div>
-      <input type="text" id="password" placeholder="Введите код">
-      <button onclick="checkPassword()">Send</button>
+      <div id="login-ui">
+        <input type="text" id="password" placeholder="Введите код">
+        <button onclick="checkPassword()">Send</button>
+      </div>
+      <div id="desktop" style="display:none">
+        <img id="icon-pers" class="icon" src="pers.png" alt="pers">
+        <img id="icon-code" class="icon" src="Code.png" alt="code">
+        <img id="icon-ce" class="icon" src="Ce.png" alt="ce">
+        <div id="clock"></div>
+        <img id="exit-button" src="off.png" onclick="window.close()">
+      </div>
     </div>
-  </div>
-
-  <div id="desktop-screen" style="display:none;">
-    <img src="LogIN (2).png" alt="Desktop Background">
-    <div id="clock"></div>
-    <img id="exit-button" src="off.png" alt="Exit" width="48" onclick="window.close()">
   </div>
 
   <script>
     function checkPassword() {
-      const input = document.getElementById("password").value;
+      const val = document.getElementById("password").value;
       const error = document.getElementById("error-msg");
-      if (input === "682") {
-        document.getElementById("login-screen").style.display = "none";
-        document.getElementById("desktop-screen").style.display = "block";
+      if (val === "682") {
+        document.getElementById("login-ui").style.display = "none";
+        error.style.display = "none";
+        document.getElementById("desktop").style.display = "block";
       } else {
         error.style.display = "block";
       }
     }
 
-    function updateTime() {
+    function updateClock() {
       const now = new Date();
-      const hh = now.getHours().toString().padStart(2, '0');
-      const mm = now.getMinutes().toString().padStart(2, '0');
-      document.getElementById("clock").textContent = `${hh}:${mm}`;
+      const h = now.getHours().toString().padStart(2, "0");
+      const m = now.getMinutes().toString().padStart(2, "0");
+      document.getElementById("clock").textContent = `${h}:${m}`;
     }
-    setInterval(updateTime, 1000);
-    updateTime();
+    setInterval(updateClock, 1000);
+    updateClock();
   </script>
 </body>
 </html>
