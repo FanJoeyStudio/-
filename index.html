@@ -1,348 +1,146 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>BestDay UI</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BestDay PC</title>
   <style>
-    * { box-sizing: border-box; }
-    html, body {
+    body {
       margin: 0;
-      padding: 0;
       background: black;
-      width: 100vw;
-      height: 100vh;
       overflow: hidden;
     }
-    #container {
+
+    .wrapper {
       position: relative;
-      width: 1223px;
-      height: 768px;
-      margin: 0 auto;
-      top: 50%;
-      transform: translateY(-50%);
+      width: 800px;
+      height: 500px;
+      margin: 50px auto;
     }
-    #background-screen {
+
+    .screen {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-      background: url('login-bg.png') no-repeat center;
-      background-size: cover;
-    }
-    #ui-layer {
-      position: absolute;
-      top: 92px;
-      left: 63px;
-      width: 1098px;
-      height: 576px;
-      z-index: 2;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    #login-ui {
-      position: relative;
+      top: 38px;
+      left: 40px;
+      width: 720px;
+      height: 424px;
+      background-color: #0d3d66;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 10px;
+      justify-content: center;
     }
-    #login-ui input {
-      padding: 10px;
-      width: 300px;
-      font-size: 16px;
-    }
-    #login-ui button {
-      padding: 10px 20px;
-      font-size: 16px;
-    }
-    #login-icon {
-      width: 80px;
-      height: 80px;
-    }
-    #error-msg {
-      color: red;
-      font-family: sans-serif;
-      display: none;
-    }
-    #desktop {
+
+    .frame {
       position: absolute;
       top: 0;
       left: 0;
-      width: 1098px;
-      height: 576px;
-      background: url('fon.png') no-repeat center;
+      width: 800px;
+      height: 500px;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .login-icon {
+      width: 80px;
+      margin-bottom: 20px;
+    }
+
+    .input-row {
+      display: flex;
+    }
+
+    input {
+      padding: 10px;
+      font-size: 16px;
+      width: 200px;
+    }
+
+    button {
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .desktop {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 720px;
+      height: 424px;
+      background-image: url('fon.png');
       background-size: cover;
       display: none;
     }
-    .icon {
+
+    .code-icon, .off-btn, .time-label {
       position: absolute;
-      width: 80px;
-      height: 80px;
+      z-index: 2;
+    }
+
+    .code-icon {
+      top: 10px;
+      left: 10px;
+      width: 50px;
+    }
+
+    .off-btn {
+      bottom: 10px;
+      left: 10px;
+      width: 50px;
       cursor: pointer;
     }
-    #icon-pers { top: 100px; left: 100px; }
-    #icon-code { top: 100px; left: 200px; }
-    #clock {
-      position: absolute;
-      bottom: 40px;
-      right: 50px;
-      font-family: monospace;
-      font-size: 18px;
+
+    .time-label {
+      bottom: 10px;
+      right: 10px;
       color: black;
-    }
-    #exit-button {
-      position: absolute;
-      bottom: 36px;
-      left: 50px;
-      width: 48px;
-      cursor: pointer;
-    }
-    #frame {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: url('pc-frame.png') no-repeat center;
-      background-size: contain;
-      z-index: 99;
-      pointer-events: none;
+      background: rgba(255,255,255,0.6);
+      padding: 5px 10px;
+      font-family: monospace;
     }
   </style>
 </head>
 <body>
-  <div id="container">
-    <div id="background-screen"></div>
-
-    <div id="ui-layer">
-      <div id="login-ui">
-        <img src="loginicon.png" id="login-icon" alt="icon">
-        <div id="error-msg">Ошибка кода</div>
-        <input type="text" id="password" placeholder="Введите код">
-        <button onclick="checkPassword()">Send</button>
-      </div>
-
-      <div id="desktop">
-        <img id="icon-pers" class="icon" src="pers.png" alt="pers">
-        <img id="icon-code" class="icon" src="code.png" alt="code">
-        <div id="clock"></div>
-        <img id="exit-button" src="off.png">
+  <div class="wrapper">
+    <div class="screen" id="screen">
+      <img src="loginicon.png" alt="Login Icon" class="login-icon" />
+      <div class="input-row">
+        <input type="text" id="codeInput" placeholder="Enter code..." />
+        <button onclick="checkCode()">Send</button>
       </div>
     </div>
 
-    <div id="frame"></div>
-  </div>
-
-<script>
-  function checkPassword() {
-    const val = document.getElementById("password").value;
-    const error = document.getElementById("error-msg");
-
-    if (val === "682") {
-      document.getElementById("login-ui").style.display = "none";
-      error.style.display = "none";
-      document.getElementById("desktop").style.display = "block";
-      document.getElementById("background-screen").style.backgroundImage = "url('fon.png')";
-    } else {
-      error.style.display = "block";
-    }
-  }
-
-  function updateClock() {
-    const now = new Date();
-    const h = now.getHours().toString().padStart(2, "0");
-    const m = now.getMinutes().toString().padStart(2, "0");
-    document.getElementById("clock").textContent = `${h}:${m}`;
-  }
-
-  setInterval(updateClock, 1000);
-  updateClock();
-
-  document.getElementById("exit-button").onclick = function () {
-    document.getElementById("desktop").style.display = "none";
-    document.getElementById("login-ui").style.display = "flex";
-    document.getElementById("password").value = "";
-    document.getElementById("background-screen").style.backgroundImage = "url('login-bg.png')";
-  };
-</script>
-
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <title>BestDay UI</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    * { box-sizing: border-box; }
-    html, body {
-      margin: 0;
-      padding: 0;
-      background: black;
-      width: 100vw;
-      height: 100vh;
-      overflow: hidden;
-    }
-    #container {
-      position: relative;
-      width: 1223px;
-      height: 768px;
-      margin: 0 auto;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-    #background-screen {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-      background: url('login-bg.png') no-repeat center;
-      background-size: cover;
-    }
-    #ui-layer {
-      position: absolute;
-      top: 92px;
-      left: 63px;
-      width: 1098px;
-      height: 576px;
-      z-index: 2;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    #login-ui {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-    }
-    #login-ui input {
-      padding: 10px;
-      width: 300px;
-      font-size: 16px;
-    }
-    #login-ui button {
-      padding: 10px 20px;
-      font-size: 16px;
-    }
-    #login-icon {
-      width: 80px;
-      height: 80px;
-    }
-    #error-msg {
-      color: red;
-      font-family: sans-serif;
-      display: none;
-    }
-    #desktop {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 1098px;
-      height: 576px;
-      background: url('fon.png') no-repeat center;
-      background-size: cover;
-      display: none;
-    }
-    .icon {
-      position: absolute;
-      width: 80px;
-      height: 80px;
-      cursor: pointer;
-    }
-    #icon-pers { top: 100px; left: 100px; }
-    #icon-code { top: 100px; left: 200px; }
-    #clock {
-      position: absolute;
-      bottom: 40px;
-      right: 50px;
-      font-family: monospace;
-      font-size: 18px;
-      color: black;
-    }
-    #exit-button {
-      position: absolute;
-      bottom: 36px;
-      left: 50px;
-      width: 48px;
-      cursor: pointer;
-    }
-    #frame {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: url('pc-frame.png') no-repeat center;
-      background-size: contain;
-      z-index: 99;
-      pointer-events: none;
-    }
-  </style>
-</head>
-<body>
-  <div id="container">
-    <div id="background-screen"></div>
-
-    <div id="ui-layer">
-      <div id="login-ui">
-        <img src="loginicon.png" id="login-icon" alt="icon">
-        <div id="error-msg">Ошибка кода</div>
-        <input type="text" id="password" placeholder="Введите код">
-        <button onclick="checkPassword()">Send</button>
-      </div>
-
-      <div id="desktop">
-        <img id="icon-pers" class="icon" src="pers.png" alt="pers">
-        <img id="icon-code" class="icon" src="code.png" alt="code">
-        <div id="clock"></div>
-        <img id="exit-button" src="off.png">
-      </div>
+    <div class="desktop" id="desktop">
+      <img src="Code.png" class="code-icon" />
+      <img src="off.png" class="off-btn" onclick="shutdown()" />
+      <div class="time-label" id="timeLabel">00:00</div>
     </div>
 
-    <div id="frame"></div>
+    <img src="pc-frame.png" alt="Frame" class="frame" />
   </div>
 
-<script>
-  function checkPassword() {
-    const val = document.getElementById("password").value;
-    const error = document.getElementById("error-msg");
-
-    if (val === "682") {
-      document.getElementById("login-ui").style.display = "none";
-      error.style.display = "none";
-      document.getElementById("desktop").style.display = "block";
-      document.getElementById("background-screen").style.backgroundImage = "url('fon.png')";
-    } else {
-      error.style.display = "block";
+  <script>
+    function checkCode() {
+      const input = document.getElementById("codeInput").value;
+      if (input === "682") {
+        document.getElementById("screen").style.display = "none";
+        document.getElementById("desktop").style.display = "block";
+        updateTime();
+      }
     }
-  }
 
-  function updateClock() {
-    const now = new Date();
-    const h = now.getHours().toString().padStart(2, "0");
-    const m = now.getMinutes().toString().padStart(2, "0");
-    document.getElementById("clock").textContent = `${h}:${m}`;
-  }
+    function updateTime() {
+      const now = new Date();
+      const hours = now.getHours().toString().padStart(2, '0');
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      document.getElementById("timeLabel").textContent = `${hours}:${minutes}`;
+      setTimeout(updateTime, 1000);
+    }
 
-  setInterval(updateClock, 1000);
-  updateClock();
-
-  document.getElementById("exit-button").onclick = function () {
-    document.getElementById("desktop").style.display = "none";
-    document.getElementById("login-ui").style.display = "flex";
-    document.getElementById("password").value = "";
-    document.getElementById("background-screen").style.backgroundImage = "url('login-bg.png')";
-  };
-</script>
-
+    function shutdown() {
+      document.body.innerHTML = ""; // Простое выключение
+    }
+  </script>
 </body>
 </html>
