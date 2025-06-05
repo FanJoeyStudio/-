@@ -68,24 +68,26 @@
   left: 40px;
   width: 720px;
   height: 424px;
-  background-image: url('fon');
+  background-image: url('fon.png');
   background-size: cover;
+  background-position: center;
   display: none;
 }
 
-
 .code-icon {
+  position: absolute;
   top: 10px;
-  left: 20px; /* было 10px */
+  left: 20px;
   width: 50px;
 }
 
 .off-btn {
+  position: absolute;
   bottom: 10px;
-  left: 20px; /* было 10px */
+  left: 20px;
   width: 50px;
+  cursor: pointer;
 }
-
 
 .time-label {
   position: absolute;
@@ -97,17 +99,18 @@
   font-family: monospace;
 }
 
+
   </style>
 </head>
 <body>
   <div class="wrapper">
-    <div class="screen" id="screen">
-      <img src="loginicon.png" alt="Login Icon" class="login-icon" />
-      <div class="input-row">
-        <input type="text" id="codeInput" placeholder="Enter code..." />
-        <button onclick="checkCode()">Send</button>
-      </div>
-    </div>
+<div class="screen" id="screen">
+  <img src="loginicon.png" alt="Login Icon" class="login-icon" />
+  <div class="input-row">
+    <input type="text" id="codeInput" placeholder="Enter code..." />
+    <button onclick="checkCode()">Send</button>
+  </div>
+</div>
 
 <div class="desktop" id="desktop">
   <img src="Code.png" class="code-icon" />
@@ -115,8 +118,8 @@
   <div class="time-label" id="timeLabel">00:00</div>
 </div>
 
+<img src="pc-frame.png" alt="Frame" class="frame" />
 
-    <img src="pc-frame.png" alt="Frame" class="frame" />
   </div>
 
   <script>
