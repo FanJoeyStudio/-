@@ -137,28 +137,47 @@
     <div id="frame"></div>
   </div>
 
-  <script>
-    function checkPassword() {
-      const val = document.getElementById("password").value;
-      const error = document.getElementById("error-msg");
-      if (val === "682") {
-        document.getElementById("login-ui").style.display = "none";
-        error.style.display = "none";
-        document.getElementById("desktop").style.display = "block";
-        document.getElementById("background-screen").style.backgroundImage = "url('fon.png')";
-      } else {
-        error.style.display = "block";
-      }
-    }
+<!-- Весь <script> заменяем на: -->
+<script>
+  function checkPassword() {
+    const val = document.getElementById("password").value;
+    const error = document.getElementById("error-msg");
+    
+    if (val === "682") {
+      // Удаляем логин
+      document.getElementById("login-ui").style.display = "none";
+      error.style.display = "none";
+      
+      // Показываем рабочий стол
+      document.getElementById("desktop").style.display = "block";
 
-    function updateClock() {
-      const now = new Date();
-      const h = now.getHours().toString().padStart(2, "0");
-      const m = now.getMinutes().toString().padStart(2, "0");
-      document.getElementById("clock").textContent = `${h}:${m}`;
+      // Меняем фон
+      document.getElementById("background-screen").style.backgroundImage = "url('fon.png')";
+    } else {
+      error.style.display = "block";
     }
-    setInterval(updateClock, 1000);
-    updateClock();
-  </script>
+  }
+
+  // Функция часов
+  function updateClock() {
+    const now = new Date();
+    const h = now.getHours().toString().padStart(2, "0");
+    const m = now.getMinutes().toString().padStart(2, "0");
+    document.getElementById("clock").textContent = `${h}:${m}`;
+  }
+
+  // Обновляем каждую секунду
+  setInterval(updateClock, 1000);
+  updateClock();
+
+  // Функция "выхода" — вернуться на логин
+  document.getElementById("exit-button").onclick = function() {
+    document.getElementById("desktop").style.display = "none";
+    document.getElementById("login-ui").style.display = "flex";
+    document.getElementById("password").value = "";
+    document.getElementById("background-screen").style.backgroundImage = "url('LogIN blue.png')";
+  };
+</script>
+
 </body>
 </html>
