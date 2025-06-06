@@ -154,15 +154,37 @@
   left: 24px;
   width: 650px;
   height: 320px;
-  background-color: white;
+  background-color: black;
   border: 2px solid #000;
   box-shadow: 0 0 10px black;
   z-index: 5;
-  padding: 10px;">
-  <h3>Code App</h3>
-  <p>Это окно внутри ПК!</p>
-  <button onclick="closeApp()">Закрыть</button>
+  display: flex;
+  flex-direction: column;
+">
+  <!-- Верхняя панель с кнопкой закрытия -->
+  <div style="display: flex; justify-content: flex-end; background-color: #111; padding: 4px;">
+    <button onclick="closeApp()" style="background: red; color: white; border: none; padding: 4px 8px; cursor: pointer;">X</button>
+  </div>
+
+  <!-- История команд -->
+  <div id="terminalOutput" style="
+    flex-grow: 1;
+    padding: 10px;
+    color: white;
+    font-family: monospace;
+    font-size: 14px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  "></div>
+
+  <!-- Поле ввода и кнопка -->
+  <div style="display: flex; padding: 8px; background-color: #111; border-top: 1px solid #444;">
+    <input id="terminalInput" type="text" style="flex-grow: 1; padding: 6px; font-family: monospace;" placeholder="Введите команду..." />
+    <button onclick="sendCommand()" style="margin-left: 8px; padding: 6px 12px; cursor: pointer;">Отправить</button>
+  </div>
 </div>
+
 
 
       <div class="taskbar">
@@ -209,6 +231,20 @@ codeBtn.addEventListener("click", () => {
 function closeApp() {
   myAppWindow.style.display = "none";
 }
+
+    function sendCommand() {
+  const input = document.getElementById("terminalInput");
+  const output = document.getElementById("terminalOutput");
+
+  const command = input.value.trim();
+  if (command !== "") {
+    const response = `> ${command}\nОтвет: Команда "${command}" выполнена.`; // здесь логика ответа
+    output.textContent += response + "\n";
+    output.scrollTop = output.scrollHeight; // автопрокрутка
+    input.value = "";
+  }
+}
+
 
   </script>
 </body>
