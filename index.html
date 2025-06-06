@@ -163,7 +163,12 @@
   <div style="flex-shrink: 0; display: flex; justify-content: flex-end; background-color: #111; padding: 4px;">
     <button onclick="closeApp()" style="background: red; color: white; border: none; padding: 4px 8px; cursor: pointer;">X</button>
   </div>
-
+  
+  <div style="flex-shrink: 0; display: flex; padding: 8px; background-color: #111; border-top: 1px solid #444;">
+    <input id="terminalInput" type="text" style="flex-grow: 1; padding: 6px; font-family: monospace;" placeholder="Введите команду..." />
+    <button onclick="sendCommand()" style="margin-left: 8px; padding: 6px 12px; cursor: pointer;">Отправить</button>
+  </div>
+</div>
   <!-- Прокручиваемая область вывода -->
   <div id="terminalOutput" style="
     flex-grow: 1;
@@ -176,14 +181,6 @@
     white-space: pre-wrap;
     word-wrap: break-word;
   "></div>
-
-  <!-- Панель ввода -->
-  <div style="flex-shrink: 0; display: flex; padding: 8px; background-color: #111; border-top: 1px solid #444;">
-    <input id="terminalInput" type="text" style="flex-grow: 1; padding: 6px; font-family: monospace;" placeholder="Введите команду..." />
-    <button onclick="sendCommand()" style="margin-left: 8px; padding: 6px 12px; cursor: pointer;">Отправить</button>
-  </div>
-</div>
-
 
 
 
