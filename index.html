@@ -251,10 +251,18 @@ function shutdownApp() {
 const myAppWindow = document.getElementById("myAppWindow");
 
 codeBtn.addEventListener("click", () => {
-  myAppWindow.style.display = "block";
+  document.getElementById("myAppWindow").style.display = "block";
   document.getElementById("appTopBar").style.display = "flex";
   document.getElementById("appBottomBar").style.display = "flex";
   document.getElementById("terminalInput").focus();
+});
+
+function closeApp() {
+  document.getElementById("myAppWindow").style.display = "none";
+  document.getElementById("appTopBar").style.display = "none";
+  document.getElementById("appBottomBar").style.display = "none";
+}
+
 });
 
 
