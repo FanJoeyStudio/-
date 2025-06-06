@@ -146,9 +146,8 @@
 </button>
 
 
-      <!-- Всплывающее окно -->
 <div id="myAppWindow" style="
-  display: none;
+  display: flex;
   flex-direction: column;
   position: absolute;
   top: 20px;
@@ -159,31 +158,32 @@
   border: 2px solid #000;
   box-shadow: 0 0 10px black;
   z-index: 5;
-  overflow: hidden;
 ">
-  <!-- Верхняя панель с кнопкой закрытия -->
-  <div style="display: flex; justify-content: flex-end; background-color: #111; padding: 4px;">
+  <!-- Панель с кнопкой закрытия -->
+  <div style="flex-shrink: 0; display: flex; justify-content: flex-end; background-color: #111; padding: 4px;">
     <button onclick="closeApp()" style="background: red; color: white; border: none; padding: 4px 8px; cursor: pointer;">X</button>
   </div>
 
-  <!-- История команд -->
+  <!-- Прокручиваемая область вывода -->
   <div id="terminalOutput" style="
     flex-grow: 1;
-    padding: 15px;
+    padding: 10px 15px;
     color: white;
     font-family: monospace;
     font-size: 14px;
     overflow-y: auto;
+    background-color: black;
     white-space: pre-wrap;
     word-wrap: break-word;
   "></div>
 
-  <!-- Поле ввода и кнопка -->
-  <div style="display: flex; padding: 8px; background-color: #111; border-top: 1px solid #444;">
+  <!-- Панель ввода -->
+  <div style="flex-shrink: 0; display: flex; padding: 8px; background-color: #111; border-top: 1px solid #444;">
     <input id="terminalInput" type="text" style="flex-grow: 1; padding: 6px; font-family: monospace;" placeholder="Введите команду..." />
     <button onclick="sendCommand()" style="margin-left: 8px; padding: 6px 12px; cursor: pointer;">Отправить</button>
   </div>
 </div>
+
 
 
 
@@ -234,6 +234,8 @@ function closeApp() {
 }
 
     function sendCommand() {
+      if (myAppWindow.style.display === "none") return;
+      
   const input = document.getElementById("terminalInput");
   const output = document.getElementById("terminalOutput");
 
