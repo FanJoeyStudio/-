@@ -268,22 +268,25 @@ function sendCommand() {
 
   const input = document.getElementById("terminalInput");
   const output = document.getElementById("terminalOutput");
-  const command = input.value.trim();
+  const originalCommand = input.value.trim();
+  const command = originalCommand.toLowerCase(); // привели к нижнему регистру
 
   if (command !== "") {
     const customCommands = {
       "лорд": "Ответ: Его имя пока нельзя называть.",
       "тайна": "Ответ: Уровень доступа недостаточен.",
       "682": "Ответ: Этот код уже активирован.",
-      "clear": "", // можем позже сделать очистку терминала
+      "секрет": "Ответ: Команда «секрет» подтверждена.",
+      "help": "Список команд: 682, лорд, тайна, секрет, help",
+      "clear": "", // позже очистка
     };
 
     let responseText = "";
 
     if (customCommands.hasOwnProperty(command)) {
-      responseText = `> ${command}\n${customCommands[command]}`;
+      responseText = `> ${originalCommand}\n${customCommands[command]}`;
     } else {
-      responseText = `> ${command}\nОтвет: Команда "${command}" выполнена.`;
+      responseText = `> ${originalCommand}\nОтвет: Команда "${originalCommand}" выполнена.`;
     }
 
     output.textContent += responseText + "\n";
@@ -291,6 +294,7 @@ function sendCommand() {
     input.value = "";
   }
 }
+
 
 
 
