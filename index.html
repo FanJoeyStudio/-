@@ -269,7 +269,7 @@ function sendCommand() {
   const input = document.getElementById("terminalInput");
   const output = document.getElementById("terminalOutput");
   const originalCommand = input.value.trim();
-  const command = originalCommand.toLowerCase(); // привели к нижнему регистру
+  const command = originalCommand.toLowerCase();
 
   if (command !== "") {
     const customCommands = {
@@ -277,10 +277,17 @@ function sendCommand() {
       "тайна": "Ответ: Уровень доступа недостаточен.",
       "682": "Ответ: Этот код уже активирован.",
       "секрет": "Ответ: Команда «секрет» подтверждена.",
-      "help": "Список команд: 682, лорд, тайна, секрет, help",
-      "clear": "", // позже очистка
+      "help": "Список команд: 682, лорд, тайна, секрет, help, clear",
     };
 
+    // === Обработка команды "clear" ===
+    if (command === "clear") {
+      output.innerHTML = ""; // очищаем экран
+      input.value = "";
+      return;
+    }
+
+    // === Все остальные команды ===
     let responseText = "";
 
     if (customCommands.hasOwnProperty(command)) {
