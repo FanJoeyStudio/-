@@ -72,28 +72,25 @@
       background-size: cover;
       background-position: center;
       display: none;
-      position: relative;
       overflow: hidden;
     }
 
-  .taskbar {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 60px;
-  background-color: #e0e0e0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 20px;
-  box-sizing: border-box;
-  border-top: 1px solid #aaa;
-  box-shadow: 0 -2px 4px rgba(0,0,0,0.3);
-  z-index: 2;
-}
-
-
+    .taskbar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      background-color: #e0e0e0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      box-sizing: border-box;
+      border-top: 1px solid #aaa;
+      box-shadow: 0 -2px 4px rgba(0,0,0,0.3);
+      z-index: 2;
+    }
 
     .taskbar-left {
       display: flex;
@@ -107,27 +104,27 @@
       gap: 10px;
     }
 
-.taskbar img {
-  height: 36px;
-  margin: 0 5px;
-}
+    .taskbar img {
+      height: 36px;
+      margin: 0 5px;
+    }
 
     .code-icon {
       width: 50px;
     }
 
-.off-btn {
-  width: 60px;
-  height: 60px;
-  margin-top: -8px;
-}
+    .off-btn {
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+    }
 
     .time-label {
       font-family: monospace;
       background: transparent;
       color: black;
       padding: 5px 10px;
-        font-size: 18px;
+      font-size: 18px;
     }
   </style>
 </head>
@@ -142,16 +139,15 @@
     </div>
 
     <div class="desktop" id="desktop">
-      <img src="Code.png" class="code-icon" style="position:absolute; top: 20px; left: 20px; width: 50px;" />
+      <img src="Code.png" class="code-icon" style="position:absolute; top: 20px; left: 20px;" />
       <div class="taskbar">
-  <div class="taskbar-left">
-    <img src="off.png" class="off-btn" onclick="shutdown()" />
-  </div>
-  <div class="taskbar-right">
-    <div class="time-label" id="timeLabel">00:00</div>
-  </div>
-</div>
-
+        <div class="taskbar-left">
+          <img src="off.png" class="off-btn" onclick="shutdown()" />
+        </div>
+        <div class="taskbar-right">
+          <div class="time-label" id="timeLabel">00:00</div>
+        </div>
+      </div>
     </div>
 
     <img src="pc-frame.png" alt="Frame" class="frame" />
