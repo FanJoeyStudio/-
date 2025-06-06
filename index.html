@@ -263,21 +263,35 @@ function closeApp() {
   document.getElementById("appBottomBar").style.display = "none";
 }
 
-    function sendCommand() {
-      if (myAppWindow.style.display === "none") return;
-      
+function sendCommand() {
+  if (myAppWindow.style.display === "none") return;
+
   const input = document.getElementById("terminalInput");
   const output = document.getElementById("terminalOutput");
-
   const command = input.value.trim();
+
   if (command !== "") {
-    const response = `> ${command}\nОтвет: Команда "${command}" выполнена.`; // здесь логика ответа
-    output.textContent += response + "\n";
-document.getElementById("terminalScroll").scrollTop = document.getElementById("terminalScroll").scrollHeight;
- // автопрокрутка
+    const customCommands = {
+      "лорд": "Ответ: Его имя пока нельзя называть.",
+      "тайна": "Ответ: Уровень доступа недостаточен.",
+      "682": "Ответ: Этот код уже активирован.",
+      "clear": "", // можем позже сделать очистку терминала
+    };
+
+    let responseText = "";
+
+    if (customCommands.hasOwnProperty(command)) {
+      responseText = `> ${command}\n${customCommands[command]}`;
+    } else {
+      responseText = `> ${command}\nОтвет: Команда "${command}" выполнена.`;
+    }
+
+    output.textContent += responseText + "\n";
+    document.getElementById("terminalScroll").scrollTop = document.getElementById("terminalScroll").scrollHeight;
     input.value = "";
   }
 }
+
 
 
   </script>
