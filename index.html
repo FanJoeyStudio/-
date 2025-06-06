@@ -209,7 +209,7 @@
 
       <div class="taskbar">
         <div class="taskbar-left">
-          <img src="off.png" class="off-btn" onclick="shutdown()" />
+         <img src="off.png" class="off-btn" onclick="shutdownPC()" />
         </div>
         <div class="taskbar-right">
           <div class="time-label" id="timeLabel">00:00</div>
@@ -229,6 +229,20 @@
         updateTime();
       }
     }
+    function shutdownPC() {
+  const desktop = document.getElementById("desktop");
+  const screen = document.getElementById("screen");
+
+  desktop.style.transition = "opacity 0.5s";
+  desktop.style.opacity = "0";
+
+  setTimeout(() => {
+    desktop.style.display = "none";
+    desktop.style.opacity = "1";
+    screen.style.display = "flex";
+  }, 500);
+}
+
 
     function updateTime() {
       const now = new Date();
