@@ -146,12 +146,27 @@
 </button>
 
 
-<div id="myAppWindow" style="
+ <!-- Верхняя панель приложения (вне окна) -->
+<div id="appTopBar" style="
   position: absolute;
   top: 40px;
   left: 40px;
   width: 650px;
-  height: 320px;
+  background-color: #111;
+  display: flex;
+  justify-content: flex-end;
+  z-index: 8;
+">
+  <button onclick="closeApp()" style="background: red; color: white; border: none; padding: 4px 8px; cursor: pointer;">X</button>
+</div>
+
+<!-- Само окно без верхней панели -->
+<div id="myAppWindow" style="
+  position: absolute;
+  top: 64px; /* сдвинули ниже, чтобы не залезало на верхнюю панель */
+  left: 40px;
+  width: 650px;
+  height: 272px;
   background-color: black;
   border: 2px solid #000;
   box-shadow: 0 0 10px black;
@@ -160,12 +175,6 @@
   flex-direction: column;
   overflow: hidden;
 ">
-  <!-- Верхняя панель -->
-  <div style="flex-shrink: 0; display: flex; justify-content: flex-end; background-color: #111; padding: 4px;">
-    <button onclick="closeApp()" style="background: red; color: white; border: none; padding: 4px 8px; cursor: pointer;">X</button>
-  </div>
-
-  <!-- Контейнер с прокруткой (только для вывода) -->
   <div id="terminalScroll" style="flex-grow: 1; overflow-y: auto; background-color: black;">
     <div id="terminalOutput" style="
       padding: 10px 15px;
@@ -176,13 +185,24 @@
       word-wrap: break-word;
     "></div>
   </div>
-
-  <!-- Панель ввода — зафиксирована внизу окна -->
-  <div style="flex-shrink: 0; display: flex; padding: 8px; background-color: #111; border-top: 1px solid #444;">
-    <input id="terminalInput" type="text" style="flex-grow: 1; padding: 6px; font-family: monospace;" placeholder="Введите команду..." />
-    <button onclick="sendCommand()" style="margin-left: 8px; padding: 6px 12px; cursor: pointer;">Отправить</button>
-  </div>
 </div>
+
+<!-- Панель ввода (вне окна) -->
+<div id="appBottomBar" style="
+  position: absolute;
+  top: 336px;
+  left: 40px;
+  width: 650px;
+  background-color: #111;
+  display: flex;
+  padding: 8px;
+  border-top: 1px solid #444;
+  z-index: 8;
+">
+  <input id="terminalInput" type="text" style="flex-grow: 1; padding: 6px; font-family: monospace;" placeholder="Введите команду..." />
+  <button onclick="sendCommand()" style="margin-left: 8px; padding: 6px 12px; cursor: pointer;">Отправить</button>
+</div>
+
 
 
 
@@ -232,12 +252,18 @@ const myAppWindow = document.getElementById("myAppWindow");
 
 codeBtn.addEventListener("click", () => {
   myAppWindow.style.display = "block";
+  document.getElementById("appTopBar").style.display = "flex";
+  document.getElementById("appBottomBar").style.display = "flex";
   document.getElementById("terminalInput").focus();
 });
 
+
 function closeApp() {
   myAppWindow.style.display = "none";
+  document.getElementById("appTopBar").style.display = "none";
+  document.getElementById("appBottomBar").style.display = "none";
 }
+
 
     function sendCommand() {
       if (myAppWindow.style.display === "none") return;
