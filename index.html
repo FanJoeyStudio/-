@@ -200,7 +200,7 @@
   z-index: 8;
 ">
   <input id="terminalInput" type="text" style="flex-grow: 1; padding: 6px; font-family: monospace;" placeholder="Введите команду..." />
-  <button onclick="sendCommand()" style="margin-left: 8px; padding: 6px 12px; cursor: pointer;">Отправить</button>
+  <button onclick="sendCommand()" style="margin-left: 8px; padding: 6px 12px; cursor: pointer;">Send</button>
 </div>
 
 
@@ -287,7 +287,7 @@ function sendCommand() {
       "682": "CMD\ code already entered",
       "52683635": "CMD\ Code - 94458823",
       "help": "CMD\ The codes can be found in the game Food Show.",
-      "Hi": "CMD\ I'm listening",
+      "hi": "CMD\ I'm listening",
       "Who are you?": "CMD\ I'm - CMD",
       "Stop": "CMD\ i",
       
@@ -306,7 +306,7 @@ function sendCommand() {
     if (customCommands.hasOwnProperty(command)) {
       responseText = `> ${originalCommand}\n${customCommands[command]}`;
     } else {
-      responseText = `> ${originalCommand}\nОтвет: Команда "${originalCommand}" выполнена.`;
+      responseText = `> ${originalCommand}\nCMD\ Command "${originalCommand}" not found or entered incorrectly.`;
     }
 
     output.textContent += responseText + "\n";
